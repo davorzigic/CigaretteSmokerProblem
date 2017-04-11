@@ -1,9 +1,9 @@
-package CigaretteSmoker;
+package CigaretteSmokerV2;
 
 import java.util.Random;
 import java.util.concurrent.Semaphore;
 
-public class Main {
+public class MainV2 {
 
 	static int paper, tobacco, matches = 0;
 	static Random random = new Random();
@@ -31,15 +31,14 @@ public class Main {
 							Thread.sleep(2000);
 							System.out.println("Smoker 1 has smoked the cigarette.");
 							s4.release();
-						} else if (paper == 0 & (tobacco == 0 || matches == 0)) {
-							paper++;
-							System.out.println("Smoker 1 has left the paper on the table.");
-						} else if (paper == 1) {
-							pickOne = random.nextInt(2);
-							if (pickOne == 0) {
-								s2.release();
-							} else {
+						} else {
+							if (paper == 1 && tobacco == 1) {
+								
 								s3.release();
+								
+							} else if (paper == 1 && matches == 1) {
+
+								s2.release();
 							}
 						}
 
@@ -68,19 +67,18 @@ public class Main {
 							Thread.sleep(2000);
 							System.out.println("Smoker 2 has smoked the cigarette.");
 							s4.release();
-						} else if (tobacco == 0 & (paper == 0 || matches == 0)) {
-							tobacco++;
-							System.out.println("Smoker 1 has left the tobacco on the table.");
-						} else if (tobacco == 1) {
-							pickOne = random.nextInt(2);
-							if (pickOne == 0) {
-								s1.release();
-							} else {
+						} else {
+							if (tobacco == 1 && paper == 1) {
+								
 								s3.release();
+								
+							} else if (tobacco == 1 && matches == 1) {
+
+								s1.release();
 							}
 						}
 
-						Thread.sleep(500);
+						
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -105,15 +103,14 @@ public class Main {
 							Thread.sleep(2000);
 							System.out.println("Smoker 3 has smoked the cigarette.");
 							s4.release();
-						} else if (matches == 0 & (tobacco == 0 || paper == 0)) {
-							matches++;
-							System.out.println("Smoker 3 has left the matches on the table.");
-						} else if (matches == 1) {
-							pickOne = random.nextInt(2);
-							if (pickOne == 0) {
-								s1.release();
-							} else {
+						} else {
+							if (matches == 1 && paper == 1) {
+								
 								s2.release();
+								
+							} else if (matches == 1 && tobacco == 1) {
+
+								s1.release();
 							}
 						}
 
